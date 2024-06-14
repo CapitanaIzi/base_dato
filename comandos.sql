@@ -60,7 +60,54 @@ DELETE FROM productos WHERE id= 2; /* Sino ponemos WHERE se borra todo por compl
 
 
 
+/* - Encuentra todas las películas de Toy Story:
+SELECT * FROM movies WHERE title LIKE ("%Toy Story%") ;
+ejemplo: (nombre de la columna) LIKE "%AT%"
+(coincide con "AT", "ATTIC", "CAT" o incluso "BATS")
 
+- Encuentra todas las películas dirigidas por John Lasseter:
+SELECT * FROM movies WHERE director="John Lasseter";
+
+Encuentra todas las películas (y directores) no dirigidas por John Lasseter:
+SELECT * FROM movies WHERE director !="John Lasseter";
+
+Encuentra todas las películas de WALL- 
+SELECT * FROM movies WHERE title LIKE "Wall-_"; 
+ejemplo: col_name LIKE "AN_"
+(coincide con "AND", pero no "AN")
+Se usa en cualquier parte de una cadena para que coincida un solo carácter (solo con LIKE o NOT LIKE)
+
+Filtrado y ordenación de los resultados de la consulta:
+- Enumerar todos los directores de películas de Pixar (alfabéticamente), sin duplicado
+SELECT DISTINCT Director FROM movies ORDER BY director ASC; 
+
+- Enumere las últimas cuatro películas de Pixar estrenadas (ordenadas de la más reciente a la menos)
+SELECT  title FROM movies ORDER BY year DESC LIMIT 4; 
+
+- Enumera las siguientes cinco películas de Pixar ordenadas alfabéticamente
+SELECT title FROM movies ORDER BY title ASC LIMIT 5 OFFSET 5;  (El OFFSET es no incluyente)
+
+Consultas SELECT simples:
+- Enumere todas las ciudades canadienses y sus poblaciones
+SELECT city,population FROM north_american_cities WHERE Country= "Canada" ORDER BY city ASC;
+
+ - Ordena todas las ciudades de los Estados Unidos por su latitud de norte a sur
+ SELECT city FROM north_american_cities WHERE country= "United States"  ORDER BY latitude DESC; 
+
+ - Enumera todas las ciudades al oeste de Chicago, ordenadas de oeste a este
+ SELECT * FROM north_american_cities WHERE longitude <-87.629798 ORDER BY longitude ASC;
+
+ - Listar las dos ciudades más grandes de México (por población)
+ SELECT city FROM north_american_cities WHERE country="Mexico" ORDER BY population DESC LIMIT 2;
+
+ - Enumere la tercera y cuarta ciudades más grandes (por población) de los Estados Unidos y su población
+ SELECT * FROM north_american_cities WHERE country="United States"  ORDER BY population DESC LIMIT 2 OFFSET 2 ;
+
+
+Consultas de varias tablas con JOIN: Me quede en la leccion 6
+Encuentra las ventas nacionales e internacionales de cada película
+
+*/
 
 
 
