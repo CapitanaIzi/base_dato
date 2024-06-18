@@ -60,7 +60,10 @@ DELETE FROM productos WHERE id= 2; /* Sino ponemos WHERE se borra todo por compl
 
 
 
-/* - Encuentra todas las películas de Toy Story:
+/* https://sqlbolt.com/
+https://eufacoprogramas.com/sql-consultas-com-join/
+
+- Encuentra todas las películas de Toy Story:
 SELECT * FROM movies WHERE title LIKE ("%Toy Story%") ;
 ejemplo: (nombre de la columna) LIKE "%AT%"
 (coincide con "AT", "ATTIC", "CAT" o incluso "BATS")
@@ -85,7 +88,7 @@ SELECT DISTINCT Director FROM movies ORDER BY director ASC;
 SELECT  title FROM movies ORDER BY year DESC LIMIT 4; 
 
 - Enumera las siguientes cinco películas de Pixar ordenadas alfabéticamente
-SELECT title FROM movies ORDER BY title ASC LIMIT 5 OFFSET 5;  (El OFFSET es no incluyente)
+SELECT title FROM movies ORDER BY title ASC LIMIT 5 OFFSET 5;  (El OFFSET es no incluyente) offset es Punto de inicio.
 
 Consultas SELECT simples:
 - Enumere todas las ciudades canadienses y sus poblaciones
@@ -105,9 +108,47 @@ SELECT city,population FROM north_american_cities WHERE Country= "Canada" ORDER 
 
 
 Consultas de varias tablas con JOIN: Me quede en la leccion 6
-Encuentra las ventas nacionales e internacionales de cada película
 
-*/
+Para combinar datos de fila en dos tablas separadas usando esto clave única. La primera de las uniones que presentaremos es la .JOININNER JOIN
+
+- Encuentra las ventas nacionales e internacionales de cada película:
+SELECT * FROM movies INNER JOIN boxoffice ON movie_id=movies.id;
+
+- Muestre las cifras de ventas de cada película a la que le fue mejor a nivel internacional que a nivel nacional
+SELECT * FROM movies INNER JOIN boxoffice ON movie_id=movies.id WHERE International_sales>Domestic_sales;
+ 
+-Enumere todas las películas por sus clasificaciones en orden descendente 
+SELECT * FROM movies INNER JOIN boxoffice ON movie_id=movies.id ORDER BY rating DESC;
+
+Lesson 7: UNIONES EXTERNAS
+- Encuentra la lista de todos los edificios que tienen empleados 
+SELECT DISTINCT building_name FROM Buildings  JOIN Employees ON building_name=building;
+- Encuentra la lista de todos los edificios y su capacidad
+SELECT * FROM Buildings;
+- Enumere todos los edificios y los distintos roles de los empleados en cada edificio (incluidos los edificios vacíos)
+ SELECT DISTINCT building_name,role FROM Buildings LEFT JOIN Employees ON Building_name= building;
+ 
+ Lesson 8: Una breve nota sobre los valores NULL
+ - Encuentre el nombre y la función de todos los empleados que no han sido asignados a un edificio ✓
+ SELECT * FROM employees WHERE building is null;
+ - Encuentre los nombres de los edificios que no tienen empleados
+ SELECT * FROM buildings LEFT JOIN Employees ON building_name=building WHERE building is null;
+ 
+ 
+ Lesson 9: Consultas con expresiones
+ - Enumere todas las películas y sus ventas combinadas en millones de dólares
+ SELECT title,(Domestic_sales + International_sales)/1000000 AS total FROM movies JOIN Boxoffice ON movie_id=movies.id;
+ 
+ - Enumere todas las películas y sus calificaciones en porcentaje
+  SELECT title,rating * (100/10) AS rating_porcentaje FROM movies JOIN boxoffice ON movies.id = movie_id;  // aca tambien podria ser rating * 10 y daba el porcentaje sin decimal
+ 
+ - Enumere todas las películas que se estrenaron en años pares
+ SELECT title,year FROM movies WHERE year %2=0;
+  
+  Lesson 10: Consultas con agregados (Pt. 1)
+ - Encuentre el tiempo más largo que un empleado ha estado en el estudio
+  me quede aca
+ */
 
 
 
