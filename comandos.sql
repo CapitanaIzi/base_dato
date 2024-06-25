@@ -1,15 +1,15 @@
 /* Comandos que usemos en mysql */
 /* -------------------------- CREATE ------------------------*/
 
-/* Crea una base de datos*/
+--Crea una base de datos
 
 CREATE DATABASE primer_db;
 
 USE primer_db;
 
-/* Crear una tabla*/
+-- Crear una tabla
 CREATE TABLE productos(
-    id INT PRIMARY KEY AUTO_INCREMENT, /* primary key nos indica q es algo importante*/
+    id INT PRIMARY KEY AUTO_INCREMENT, /* primary key nos indica q es algo importante y se pone para q cumpla ser una llave primaria y asi va a funcionar como identificador unico*/
     precio FLOAT DEFAULT 9999999, /* hay q pensar bien el nro de defecto*/
     nombre VARCHAR (20) /*(20)longitud de caracteres limite*/
 );
@@ -19,10 +19,10 @@ INSERT INTO productos (precio, nombre) VALUES (0.230, "notebook ojala");
 INSERT INTO productos () VALUES ();
 INSERT INTO productos (nombre) VALUES ( "algo");
 
-/* -------------------------- FIN CREATE ---------------------*/
-
+---------------------------- FIN CREATE ---------------------
+ 
 /* -------------------------- READ ---------------------*/
-/* Muestra las bases de datos existentes*/
+--Muestra las bases de datos existentes
 SHOW DATABASES;
 
 /* ver las tablas */
@@ -147,13 +147,23 @@ SELECT * FROM Buildings;
   
   Lesson 10: Consultas con agregados (Pt. 1)
  - Encuentre el tiempo más largo que un empleado ha estado en el estudio
-  me quede aca
+  SELECT MAX(Years_employed) FROM employees;
+
+ - Para cada puesto, encuentre el número promedio de años empleados por los empleados en ese puesto.
+ SELECT *, AVG(Years_employed) AS promedio_anios FROM employees GROUP BY role;
+ - Encuentre el número total de años de empleados trabajados en cada edificio.
+ SELECT *,SUM(Years_employed) AS suma_empleados FROM employees GROUP BY Building;
  */
 
-
-
-
-
+-- Una función común que se utiliza para contar el número de filas del grupo si no se especifica ningún nombre de columna. De lo contrario, cuente el número de filas del grupo con valores no NULL en la columna especificada.   COUNT(column)
+-- Encuentra el valor numérico más pequeño en la columna especificada para todas las filas del grupo.  MIN(column)
+-- Encuentra el valor numérico más grande en la columna especificada para todas las filas del grupo.  MAX(column)
+-- Encuentra el valor numérico promedio en la columna especificada para todas las filas del grupo.  AVG(column)
+-- Encuentra la suma de todos los valores numéricos en la columna especificada para las filas del grupo.   SUM(column)
+/* SELECT AGG_FUNC(column_or_expression) AS aggregate_description, …
+FROM mytable
+WHERE constraint_expression
+GROUP BY column; */
 
 
 
