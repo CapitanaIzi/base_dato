@@ -153,6 +153,33 @@ SELECT * FROM Buildings;
  SELECT *, AVG(Years_employed) AS promedio_anios FROM employees GROUP BY role;
  - Encuentre el número total de años de empleados trabajados en cada edificio.
  SELECT *,SUM(Years_employed) AS suma_empleados FROM employees GROUP BY Building;
+ 
+ Lección SQL 11: Consultas con agregados (Parte 2)
+ - Encuentra el número de artistas en el estudio (sin cláusula HAVING )
+  SELECT role, COUNT(role)AS Numero_de_artistas FROM employees WHERE role = "Artist";
+
+ - Encuentra el número de empleados de cada rol en el estudio.
+  SELECT role, COUNT(role)AS Numero_de_empleados FROM employees Group by role; 
+ - Encuentre el número total de años empleados por todos los ingenieros.
+  SELECT *, SUM(Years_employed) AS años_empleados FROM employees Group by role HAVING role="Engineer"; 
+ Lección 12 de SQL: Orden de ejecución de una consulta
+ - Calcula el número de películas que ha dirigido cada director.
+SELECT director, COUNT(title) AS peli_dirigidas FROM movies Group by director; 
+ - Encuentre las ventas totales nacionales e internacionales que se pueden atribuir a cada director
+SELECT director, SUM (Domestic_sales + International_sales) AS ventas_por_director FROM movies JOIN boxoffice ON movie_id=movies.id  Group by director;
+ 
+
+
+ Lección 13 de SQL: Inserción de filas
+ - Agrega la nueva producción del estudio, Toy Story 4 a la lista de películas (puedes usar cualquier director)
+ INSERT INTO movies (title, director) VALUES ("Toy Story 4","Lee Unkrich"); 
+ - ¡Toy Story 4 ha sido lanzado con gran éxito de crítica! Tenía una calificación de 8,7 y ganó 340 millones a nivel nacional y 270 millones a nivel internacional . Agregue el registro a la BoxOfficetabla.
+ INSERT INTO boxoffice ( movie_id,rating, Domestic_sales, International_sales ) VALUES (15, 8.7, 340000000, 270000000);  pero al modificarse todo tambien se puede poner solo: INSERT INTO boxoffice VALUES (15, 8.7, 340000000, 270000000);
+
+Lección 14 de SQL: Actualización de filas
+ - El director de Bichos está equivocado, en realidad fue dirigida por John Lasseter
+ - El año en que se estrenó Toy Story 2 es incorrecto, en realidad se estrenó en 1999
+ - ¡Tanto el título como el director de Toy Story 8 son incorrectos! El título debería ser "Toy Story 3" y fue dirigida por Lee Unkrich
  */
 
 -- Una función común que se utiliza para contar el número de filas del grupo si no se especifica ningún nombre de columna. De lo contrario, cuente el número de filas del grupo con valores no NULL en la columna especificada.   COUNT(column)
@@ -163,7 +190,20 @@ SELECT * FROM Buildings;
 /* SELECT AGG_FUNC(column_or_expression) AS aggregate_description, …
 FROM mytable
 WHERE constraint_expression
-GROUP BY column; */
+GROUP BY column; 
+-------------------
+SELECT DISTINCT column, AGG_FUNC(column_or_expression), …
+FROM mytable
+    JOIN another_table
+      ON mytable.column = another_table.column
+    WHERE constraint_expression
+    GROUP BY column
+    HAVING constraint_expression
+    ORDER BY column ASC/DESC
+    LIMIT count OFFSET COUNT;
+
+
+*/
 
 
 
