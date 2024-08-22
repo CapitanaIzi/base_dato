@@ -31,6 +31,9 @@ SHOW TABLES;
 /* ver los productos de una tabla */
 SELECT * FROM productos;
 
+/* es para ver si se creo la tabla correctamente por mas q no hay nada insertado*/
+DESCRIBE productos;
+
 /* -------------------------- FIN READ ---------------------*/
 
 /* -------------------------- UPDATE ---------------------*/
@@ -58,7 +61,8 @@ DELETE FROM productos WHERE id= 2; /* Sino ponemos WHERE se borra todo por compl
 
 /* -------------------------- FIN DELETE ---------------------*/
 
-
+-- https://www.codingame.com/start/ 
+-- es una pagina de juego para practicar programacion en vacaciones de invierno
 
 /* https://sqlbolt.com/
 https://eufacoprogramas.com/sql-consultas-com-join/
@@ -156,3 +160,30 @@ INSERT INTO electrodomesticos (nombre) VALUES ( "licuadora");
 ALTER TABLE electrodomesticos ADD COLUMN tiene_oferta TINYINT (1) DEFAULT 0;
 ALTER TABLE electrodomesticos ADD COLUMN peso FLOAT;
 ALTER TABLE electrodomesticos ADD COLUMN tamanio FLOAT NOT NULL;
+
+/* const { createConnection } = require("mysql2/promise");
+// pedimos el algoritmo q va a crear la conexion.   aca q me traiga la funcionalidad de mysql2
+async function crearConexion() {
+    return await createConnection({
+        host: "localhost",
+        user: "root",
+        database: "segundo_db",
+        password: "1234"
+    });
+}
+//llaves significa q es un objeto
+// localhost y root son palabras claves que llevan a conectarse con el servidor de la computadora
+// localhost Cuando un programa se conecta a "localhost", está comunicándose consigo mismo a través de la red, es decir, está accediendo al mismo equipo donde se está ejecutando.
+//"root" suele referirse al directorio raíz del proyecto en el cual estás trabajando
+async function main() {
+    const conexionBD = await crearConexion();
+    const [resultado] = await conexionBD.query("SELECT * FROM donghuas;");
+    console.table(resultado);
+    conexionBD.end();
+}
+// [resultado] es para indicar/ filtrar el 1er resultado, en este caso el 1er vector,
+// await= es de esperar.. y se usa cada vez q queramos usar la tabla de Datos
+//conexionBD.end(); es para cerrar
+
+main();
+*/

@@ -1,4 +1,5 @@
 /* El conjunto de comandos para reiniciar la base de datos */
+DROP DATABASE primer_db;
 CREATE DATABASE primer_db;
 USE primer_db;
 CREATE TABLE productos(
